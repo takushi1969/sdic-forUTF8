@@ -1,0 +1,263 @@
+diff -ruNad sdic-2.1.3-debian/Makefile.am sdic-2.1.3/Makefile.am
+--- sdic-2.1.3-debian/Makefile.am	1999-07-23 19:11:16.000000000 +0900
++++ sdic-2.1.3/Makefile.am	2017-08-08 16:42:52.590546990 +0900
+@@ -36,10 +36,10 @@
+ 
+ ## ¼­½ñ¤òÀ¸À®¤¹¤ë¤¿¤á¤Î¥ë¡¼¥ë
+ gene.dic: contrib/gene.perl gene.txt
+-	@NKF@ -S -e gene.txt | @PERL@ contrib/gene.perl --compat > $@
++	@NKF@ -S -X -e gene.txt | @PERL@ contrib/gene.perl --compat | @NKF@ -E -w > $@
+ 
+ gene.sdic: contrib/gene.perl gene.txt
+-	@NKF@ -S -e gene.txt | @PERL@ contrib/gene.perl > $@
++	@NKF@ -S -X -e gene.txt | @PERL@ contrib/gene.perl | @NKF@ -E -w > $@
+ 
+ jgene.dic: contrib/jgene.perl gene.dic
+ 	@PERL@ contrib/jgene.perl --compat < gene.dic > $@
+@@ -59,16 +59,16 @@
+ 	test -s gene.txt
+ 
+ eijirou.dic: contrib/eijirou.perl
+-	@NKF@ -S -e @EIJIROU_DIR@/*.txt | @PERL@ contrib/eijirou.perl --compat > $@
++	@NKF@ -S -X -e @EIJIROU_DIR@/*.txt | @PERL@ contrib/eijirou.perl --compat | @NKF@ -E -w > $@
+ 
+ eijirou.sdic: contrib/eijirou.perl
+-	@NKF@ -S -e @EIJIROU_DIR@/*.txt | @PERL@ contrib/eijirou.perl > $@
++	@NKF@ -S -X -e @EIJIROU_DIR@/*.txt | @PERL@ contrib/eijirou.perl | @NKF@ -E -w > $@
+ 
+ waeijirou.dic: contrib/eijirou.perl
+-	@NKF@ -S -e @WAEIJIROU_DIR@/*.txt | @PERL@ contrib/eijirou.perl --waei --compat > $@
++	@NKF@ -S -X -e @WAEIJIROU_DIR@/*.txt | @PERL@ contrib/eijirou.perl --waei --compat | @NKF@ -E -w > $@
+ 
+ waeijirou.sdic: contrib/eijirou.perl
+-	@NKF@ -S -e @WAEIJIROU_DIR@/*.txt | @PERL@ contrib/eijirou.perl --waei > $@
++	@NKF@ -S -X -e @WAEIJIROU_DIR@/*.txt | @PERL@ contrib/eijirou.perl --waei | @NKF@ -E -w > $@
+ 
+ jedict.sdic: edict contrib/edict.perl
+ 	@PERL@ contrib/edict.perl edict > $@
+@@ -96,19 +96,19 @@
+ 
+ jedict.dic: edict
+ 	@NKF@ -deZ2 edict | \
+-	@PERL@ -pe 's!\s+/!\t!;s!/!, !g;s!, $$!!' | @SORT@ -f > $@
++	@PERL@ -pe 's!\s+/!\t!;s!/!, !g;s!, $$!!' | @SORT@ -f | @NKF@ -E -w > $@
+ 
+ j4jwords.dic: 4jwords
+ 	@NKF@ -deZ2 4jwords | \
+-	@PERL@ -pe 's!\s+/!\t!;s!/!, !g;s!, $$!!' | @SORT@ -f > $@
++	@PERL@ -pe 's!\s+/!\t!;s!/!, !g;s!, $$!!' | @SORT@ -f | @NKF@ -E -w > $@
+ 
+ jcompdic.dic: compdic
+ 	@NKF@ -deZ2 compdic | \
+-	@PERL@ -pe 's!\s+/!\t!;s!/!, !g;s!, $$!!' | @SORT@ -f > $@
++	@PERL@ -pe 's!\s+/!\t!;s!/!, !g;s!, $$!!' | @SORT@ -f | @NKF@ -E -w > $@
+ 
+ jenamdict.dic: enamdict
+ 	@NKF@ -deZ2 enamdict | \
+-	@PERL@ -pe 's!\s+/!\t!;s!/!, !g;s!, $$!!' | @SORT@ -f > $@
++	@PERL@ -pe 's!\s+/!\t!;s!/!, !g;s!, $$!!' | @SORT@ -f | @NKF@ -E -w > $@
+ 
+ eedict.dic: edict
+ 	@PERL@ contrib/edict.perl --reverse edict | \
+diff -ruNad sdic-2.1.3-debian/Makefile.in sdic-2.1.3/Makefile.in
+--- sdic-2.1.3-debian/Makefile.in	2002-07-07 23:14:15.000000000 +0900
++++ sdic-2.1.3/Makefile.in	2017-08-08 16:42:52.590546990 +0900
+@@ -366,10 +366,10 @@
+ 
+ 
+ gene.dic: contrib/gene.perl gene.txt
+-	@NKF@ -S -e gene.txt | @PERL@ contrib/gene.perl --compat > $@
++	@NKF@ -S -X -e gene.txt | @PERL@ contrib/gene.perl --compat | @NKF@ -E -w > $@
+ 
+ gene.sdic: contrib/gene.perl gene.txt
+-	@NKF@ -S -e gene.txt | @PERL@ contrib/gene.perl > $@
++	@NKF@ -S -X -e gene.txt | @PERL@ contrib/gene.perl | @NKF@ -E -w > $@
+ 
+ jgene.dic: contrib/jgene.perl gene.dic
+ 	@PERL@ contrib/jgene.perl --compat < gene.dic > $@
+@@ -389,16 +389,16 @@
+ 	test -s gene.txt
+ 
+ eijirou.dic: contrib/eijirou.perl
+-	@NKF@ -S -e @EIJIROU_DIR@/*.txt | @PERL@ contrib/eijirou.perl --compat > $@
++	@NKF@ -S -X -e @EIJIROU_DIR@/*.txt | @PERL@ contrib/eijirou.perl --compat | @NKF@ -E -w > $@
+ 
+ eijirou.sdic: contrib/eijirou.perl
+-	@NKF@ -S -e @EIJIROU_DIR@/*.txt | @PERL@ contrib/eijirou.perl > $@
++	@NKF@ -S -X -e @EIJIROU_DIR@/*.txt | @PERL@ contrib/eijirou.perl | @NKF@ -E -w > $@
+ 
+ waeijirou.dic: contrib/eijirou.perl
+-	@NKF@ -S -e @WAEIJIROU_DIR@/*.txt | @PERL@ contrib/eijirou.perl --waei --compat > $@
++	@NKF@ -S -X -e @WAEIJIROU_DIR@/*.txt | @PERL@ contrib/eijirou.perl --waei --compat | @NKF@ -E -w > $@
+ 
+ waeijirou.sdic: contrib/eijirou.perl
+-	@NKF@ -S -e @WAEIJIROU_DIR@/*.txt | @PERL@ contrib/eijirou.perl --waei > $@
++	@NKF@ -S -X -e @WAEIJIROU_DIR@/*.txt | @PERL@ contrib/eijirou.perl --waei | @NKF@ -E -w > $@
+ 
+ jedict.sdic: edict contrib/edict.perl
+ 	@PERL@ contrib/edict.perl edict > $@
+@@ -426,19 +426,19 @@
+ 
+ jedict.dic: edict
+ 	@NKF@ -deZ2 edict | \
+-	@PERL@ -pe 's!\s+/!\t!;s!/!, !g;s!, $$!!' | @SORT@ -f > $@
++	@PERL@ -pe 's!\s+/!\t!;s!/!, !g;s!, $$!!' | @SORT@ -f | @NKF@ -E -w > $@
+ 
+ j4jwords.dic: 4jwords
+ 	@NKF@ -deZ2 4jwords | \
+-	@PERL@ -pe 's!\s+/!\t!;s!/!, !g;s!, $$!!' | @SORT@ -f > $@
++	@PERL@ -pe 's!\s+/!\t!;s!/!, !g;s!, $$!!' | @SORT@ -f | @NKF@ -E -w > $@
+ 
+ jcompdic.dic: compdic
+ 	@NKF@ -deZ2 compdic | \
+-	@PERL@ -pe 's!\s+/!\t!;s!/!, !g;s!, $$!!' | @SORT@ -f > $@
++	@PERL@ -pe 's!\s+/!\t!;s!/!, !g;s!, $$!!' | @SORT@ -f | @NKF@ -E -w > $@
+ 
+ jenamdict.dic: enamdict
+ 	@NKF@ -deZ2 enamdict | \
+-	@PERL@ -pe 's!\s+/!\t!;s!/!, !g;s!, $$!!' | @SORT@ -f > $@
++	@PERL@ -pe 's!\s+/!\t!;s!/!, !g;s!, $$!!' | @SORT@ -f | @NKF@ -E -w > $@
+ 
+ eedict.dic: edict
+ 	@PERL@ contrib/edict.perl --reverse edict | \
+diff -ruNad sdic-2.1.3-debian/contrib/eijirou.perl sdic-2.1.3/contrib/eijirou.perl
+--- sdic-2.1.3-debian/contrib/eijirou.perl	2002-07-02 19:30:11.000000000 +0900
++++ sdic-2.1.3/contrib/eijirou.perl	2017-08-08 16:42:52.590546990 +0900
+@@ -11,11 +11,11 @@
+ #
+ # COMPAT·Á¼°¤ËÊÑ´¹¤¹¤ë¾ì¹ç¤Ï¡¢
+ #
+-#     nkf -S -e [file]... | perl eijirou.perl --compat >eijirou.dic
++#     nkf -S -X -e [file]... | perl eijirou.perl --compat | nkf -E -w >eijirou.dic
+ #
+ # SDIC·Á¼°¤ËÊÑ´¹¤¹¤ë¾ì¹ç¤Ï¡¢
+ #
+-#     nkf -S -e [file]... | perl eijirou.perl >eijirou.sdic
++#     nkf -S -X -e [file]... | perl eijirou.perl | nkf -E -w >eijirou.sdic
+ #
+ # ¤È»ØÄê¤·¤Æ²¼¤µ¤¤¡£¤½¤ì¤¾¤ì¤Î·Á¼°¤Î¾ÜºÙ¤Ë¤Ä¤¤¤Æ¤Ï sdic.texi ¤ò»²¾È¡£
+ 
+diff -ruNad sdic-2.1.3-debian/contrib/gene.perl sdic-2.1.3/contrib/gene.perl
+--- sdic-2.1.3-debian/contrib/gene.perl	2002-07-02 19:30:20.000000000 +0900
++++ sdic-2.1.3/contrib/gene.perl	2017-08-08 16:42:52.590546990 +0900
+@@ -12,11 +12,11 @@
+ #
+ # COMPAT·Á¼°¤ËÊÑ´¹¤¹¤ë¾ì¹ç¤Ï¡¢
+ #
+-#     nkf -S -e gene.txt | perl gene.perl --compat >gene.dic
++#     nkf -S -X -e gene.txt | perl gene.perl --compat | nkf -E -w >gene.dic
+ #
+ # SDIC·Á¼°¤ËÊÑ´¹¤¹¤ë¾ì¹ç¤Ï¡¢
+ #
+-#     nkf -S -e gene.txt | perl gene.perl >gene.sdic
++#     nkf -S -X -e gene.txt | perl gene.perl | nkf -E -w >gene.sdic
+ #
+ # ¤È»ØÄê¤·¤Æ²¼¤µ¤¤¡£¤½¤ì¤¾¤ì¤Î·Á¼°¤Î¾ÜºÙ¤Ë¤Ä¤¤¤Æ¤Ï sdic.texi ¤ò»²¾È¡£
+ #
+diff -ruNad sdic-2.1.3-debian/debian/changelog sdic-2.1.3/debian/changelog
+--- sdic-2.1.3-debian/debian/changelog	2012-07-10 08:34:29.000000000 +0900
++++ sdic-2.1.3/debian/changelog	2017-08-08 16:42:52.590546990 +0900
+@@ -1,3 +1,12 @@
++sdic (2.1.3-22-forUTF8) unstable; urgency=low
++
++  * Cope for utf8.
++    - set utf-8 as a default value of sdic-default-coding-system.
++  * Fix the direntry for SDIC
++    - https://groups.google.com/forum/#!topic/linux.debian.bugs.dist/KPiERv1TZRY
++
++ -- Takushi Usami <takushi1969@gmail.com> Tue, 8 Aug 2017 13:58:0 +0900
++
+ sdic (2.1.3-22) unstable; urgency=low
+ 
+   * Move bsdmainutils from Suggests to Depends. (closes: #660598)
+diff -ruNad sdic-2.1.3-debian/debian/patches/015_modify_direntry sdic-2.1.3/debian/patches/015_modify_direntry
+--- sdic-2.1.3-debian/debian/patches/015_modify_direntry	1970-01-01 09:00:00.000000000 +0900
++++ sdic-2.1.3/debian/patches/015_modify_direntry	2017-08-08 16:57:08.728296124 +0900
+@@ -0,0 +1,21 @@
++diff -urNad old/texi/sdic.texi new/texi/sdic.texi
++--- old/texi/sdic.texi	2017-08-08 16:37:06.417256344 +0900
+++++ new/texi/sdic.texi	2017-08-08 16:56:27.214899870 +0900
++@@ -8,7 +8,7 @@
++ 
++ @dircategory Emacs
++ @direntry
++-* SDIC: (Dictionary Viewer).
+++* SDIC: (sdic).                 Dictionary Viewer.
++ @end direntry
++ 
++ @ifinfo
++@@ -355,7 +355,7 @@
++ 
++ @defvar sdic-default-coding-system
++ $B%*%W%7%g%s$K$h$C$F4A;z%3!<%I$rL@<(E*$K;XDj$7$J$+$C$?>l9g$K!"<-=q$N4A;z%3!<(B
++-$B%I$H$7$F;H$o$l$kCM!#%G%U%)%k%H$NCM$OF|K\8l(B EUC $B$G$9!#(B
+++$B%I$H$7$F;H$o$l$kCM!#%G%U%)%k%H$NCM$OF|K\8l(B UTF-8 $B$G$9!#(B
++ @end defvar
++ 
++ 
+diff -ruNad sdic-2.1.3-debian/debian/patches/series sdic-2.1.3/debian/patches/series
+--- sdic-2.1.3-debian/debian/patches/series	2012-06-18 01:56:12.000000000 +0900
++++ sdic-2.1.3/debian/patches/series	2017-08-08 16:41:20.833823192 +0900
+@@ -1 +1,2 @@
+ 010_use_gnu_installinfo
++015_modify_direntry
+diff -ruNad sdic-2.1.3-debian/debian/sdic-eijiro.postinst sdic-2.1.3/debian/sdic-eijiro.postinst
+--- sdic-2.1.3-debian/debian/sdic-eijiro.postinst	2012-04-14 10:53:51.000000000 +0900
++++ sdic-2.1.3/debian/sdic-eijiro.postinst	2017-08-08 16:42:52.594547344 +0900
+@@ -30,7 +30,7 @@
+ # build eiwa dictionary
+ if [ ! -s $EDICT ]; then
+     echo -n "Building $EDICT (from $ORIG) ... " 1>&2
+-    nkf -e -S $ORIG | $SCRIPT > $EDICT
++    nkf -e -S -X $ORIG | $SCRIPT | nkf -E -w > $EDICT
+     chmod 644 $EDICT
+     echo "done." 1>&2
+ fi
+@@ -39,7 +39,7 @@
+ # build waei dictionary
+ if [ ! -s $JDICT ]; then
+     echo -n "Building $JDICT ... " 1>&2
+-    nkf -e -S $WAORIG | $SCRIPT --waei > $JDICT
++    nkf -e -S -X $WAORIG | $SCRIPT --waei | nkf -E -w > $JDICT
+     chmod 644 $JDICT
+     echo "done." 1>&2
+ fi
+diff -ruNad sdic-2.1.3-debian/debian/sdic-gene95.postinst sdic-2.1.3/debian/sdic-gene95.postinst
+--- sdic-2.1.3-debian/debian/sdic-gene95.postinst	2012-04-14 10:53:51.000000000 +0900
++++ sdic-2.1.3/debian/sdic-gene95.postinst	2017-08-08 16:42:52.594547344 +0900
+@@ -89,9 +89,9 @@
+ test -s $EDICT || test -s $ODICT || install_from_archive
+ 
+ # create eiwa dictionary
+-if [ ! -s $EDICT -o "`nkf -g $EDICT 2>/dev/null`" != "EUC-JP" ]; then
++if [ ! -s $EDICT -o "`nkf -g $EDICT 2>/dev/null`" != "UTF-8" ]; then
+     echo -n "Building $EDICT from $ODICT ... " 1>&2
+-    nkf -S -e $ODICT | $ESCRIPT > $EDICT
++    nkf -S -X -e $ODICT | $ESCRIPT | nkf -E -w > $EDICT
+     chmod 644 $EDICT
+     echo "done." 1>&2
+ fi
+diff -ruNad sdic-2.1.3-debian/lisp/sdic.el.in sdic-2.1.3/lisp/sdic.el.in
+--- sdic-2.1.3-debian/lisp/sdic.el.in	2002-07-02 20:17:46.000000000 +0900
++++ sdic-2.1.3/lisp/sdic.el.in	2017-08-08 16:42:52.594547344 +0900
+@@ -155,7 +155,7 @@
+ 	   ((member 'euc-japan-unix (coding-system-list)) 'euc-japan-unix)
+ 	   ((member 'euc-jp-unix (coding-system-list)) 'euc-jp-unix)
+ 	   (t 'euc-japan))
+-	'euc-japan-unix)
++	'utf-8)
+     *euc-japan*unix)
+   "*Default coding-system for sdic and libraries.")
+ 
+diff -ruNad sdic-2.1.3-debian/lisp/sdicf.el sdic-2.1.3/lisp/sdicf.el
+--- sdic-2.1.3-debian/lisp/sdicf.el	2002-07-02 20:17:46.000000000 +0900
++++ sdic-2.1.3/lisp/sdicf.el	2017-08-08 16:42:52.594547344 +0900
+@@ -83,7 +83,7 @@
+ 	      (cond
+ 	       ((memq 'euc-japan-unix (coding-system-list)) 'euc-japan-unix)
+ 	       ((memq 'euc-jp-unix (coding-system-list)) 'euc-jp-unix))
+-	    'euc-japan-unix))
++	    'utf-8))
+     (and (boundp 'MULE) *euc-japan*unix))
+   "*Default coding system for sdicf.el")
+ 
